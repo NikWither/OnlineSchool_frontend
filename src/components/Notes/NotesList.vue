@@ -10,18 +10,10 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <div class="notes__list">
-
-        <RouterLink
-            v-for="note in props.data" :to="`/notes/${note.id}`">
-            <NoteItem 
+            <NoteItem v-for="note in props.data" 
+                :id="note.id"
                 :key="note.id"
                 :title="note.title"
             />
-        </RouterLink>
-
-        
-
-        <NoteItem />
-
     </div>
 </template>

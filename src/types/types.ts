@@ -3,8 +3,3 @@ export interface Note {
     title: string,
     tags: string[],
 }
-
-// export interface Tags {
-//     id: number,
-//     title: string
-// }

@@ -2,7 +2,7 @@
 import { ref, reactive } from 'vue'
 import { api } from '../../api/api';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '../../stores/auth';
+import { useAuthStore } from '../../stores/AuthStore';
 
 const formData = reactive({
     email: '',
@@ -13,7 +13,7 @@ const error = ref(null);
 
 const router = useRouter();
 
-const auth = useAuthStore();
+const authStore = useAuthStore();
 
 const handleSubmitForm = async () => {
 
@@ -21,7 +21,9 @@ const handleSubmitForm = async () => {
 
     if (response.status === 200) {
         const token = response.data.token;
-        auth.login(token);
+        const isAdmin = response.data.user.is_admin;
+        const role = isAdmin ? 1 : 0;
+        authStore.login(token, role);
         router.push('/profile');
     }
 }
@@ -29,7 +31,31 @@ const handleSubmitForm = async () => {
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmitForm" class="form-user">
+
+    <CForm @submit.prevent="handleSubmitForm" class="form-user">
+        <CFormInput
+            type="text"
+            id="email"
+            placeholder="Логин"
+            text="Введите логин для входа в систему"
+            aria-describedby="exampleFormControlInputHelpInline"
+            v-model="formData.email"
+        />
+
+        <CFormInput
+            type="password"
+            id="password"
+            placeholder="Введите пароль от 5-ти символов"
+            text="Запоминайте свои пароли"
+            aria-describedby="exampleFormControlInputHelpInline"
+            v-model="formData.password"
+        />
+
+        <div class="form-user__input">
+            <button type="submit">Войти</button>
+        </div>
+    </CForm>
+    <!-- <form @submit.prevent="handleSubmitForm" class="form-user">
         <div class="form-user__input">
             <input v-model="formData.email" type="text" placeholder="Логин" id="email">
         </div>
@@ -37,11 +63,7 @@ const handleSubmitForm = async () => {
         <div class="form-user__input">
             <input v-model="formData.password" type="text" placeholder="Пароль" id="password">
         </div>
-
-        <div class="form-user__input">
-            <button type="submit">Войти</button>
-        </div>
-    </form>
+    </form> -->
 
     <div v-if="error">{{ error }}</div>
 </template>

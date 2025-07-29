@@ -1,24 +1,23 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
 import SupHeader from './SupHeader.vue';
+import AdminHeader from './AdminHeader.vue';
 import { ref } from 'vue';
 import { api } from '../../api/api';
-import { useAuthStore } from '../../stores/auth';
+import { useAuthStore } from '../../stores/AuthStore';
 
 const router = useRouter();
-const auth = useAuthStore();
-
-const isAuthenticated = ref(!!localStorage.getItem('token'));
+const authStore = useAuthStore();
 
 const logout = async () => {
   try {
     await api.post('/api/logout', null, {
       headers: {
-        Authorization: `Bearer ${auth.token}`,
+        Authorization: `Bearer ${authStore.token}`,
       },
     })
 
-    auth.logout()
+    authStore.logout()
     router.push('/login')
   } catch (err) {
     console.log(err)
@@ -31,20 +30,13 @@ const logout = async () => {
     <header>
         <div class="header">
             <RouterLink to="/" class="header__logo">
-                <!-- Всеволод, репетитор --> Logo
+
+                <img src="/public/images/logo.jpg" alt="">
+                <h1>Всеволод, репетитор</h1>
             </RouterLink>
 
-            <nav class="header__nav">
-                <ul>
-                    <li>О компании</li>
-                    <li>Об уроках</li>
-                    <li>О возможностях</li>
-                    <li>Результаты</li>
-                </ul>
-            </nav>
-
             <div class="header__buttons">
-                <template v-if="!auth.isAuthenticated">
+                <template v-if="!authStore.isAuthenticated">
                     <div class="btn">
                         <RouterLink to="/login">Войти</RouterLink>
                     </div>
@@ -57,15 +49,21 @@ const logout = async () => {
                     <div class="btn">
                         <button @click="logout">Выйти</button>
                     </div>
+                    <div class="btn">
+                        <RouterLink to="/profile">Профиль</RouterLink>
+                    </div>
                 </template>
 
             </div>
         </div>
-
-        <template v-if="auth.isAuthenticated">
+        <!-- auth user -->
+        <template v-if="authStore.isAuthenticated">
             <SupHeader />
         </template>
-        
+        <!-- admin -->
+        <template v-if="authStore.isAdmin && authStore.isAuthenticated">
+            <AdminHeader />
+        </template>
     </header>
 
 </template>
