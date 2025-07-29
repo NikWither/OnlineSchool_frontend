@@ -1,18 +1,23 @@
 <script setup lang="ts">
 
-defineProps({
-    title: String
+import { CCard, CCardBody, CCardTitle, CCardText, CButton } from '@coreui/vue'
+import { RouterLink } from 'vue-router';
+
+const props = defineProps({
+    title: String,
+    id: Number,
 })
 
 </script>
 
 <template>
-    <div class="item">
-        <h3 class="item__title">Задание 2</h3>
-        <div class="item__tags">
-            <p>{{title}}</p>
-            <p>Excel</p>
-        </div>
-        <p>Читать</p>
-    </div>
+    <CCard class="w-75">
+        <CCardBody>
+            <CCardTitle>{{props.title}}</CCardTitle>
+            <CCardText>With supporting text below as a natural lead-in to additional content.</CCardText>
+            <CButton color="primary" href="#">
+                <RouterLink :to="`/notes/${props.id}`">Читать</RouterLink>
+            </CButton>
+        </CCardBody>
+    </CCard>
 </template>

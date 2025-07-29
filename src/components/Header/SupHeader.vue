@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-
+import BurgerMenu from './BurgerMenu.vue';
 </script>
 
 <template>
@@ -13,4 +13,27 @@ import { RouterLink } from 'vue-router';
             <li class="item"><RouterLink to="/help">О приложении</RouterLink></li>
         </ul>
     </div>
+
+    <div class="burger">
+        <BurgerMenu />
+    </div>
+
+    
+
 </template>
+
+<style scoped>
+
+    @media(max-width: 570px) {
+        .supheader {
+            display: none;
+        }
+    }
+
+    @media(min-width: 571px) {
+        .burger {
+            display: none;
+        }
+    }
+
+</style>

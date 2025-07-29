@@ -28,6 +28,10 @@ const handleSubmitForm = async () => {
 </script>
 
 <template>
+
+
+
+
     <form @submit.prevent="handleSubmitForm" class="form-user">
         <div class="form-user__input">
             <input v-model="formData.email" type="text" placeholder="Почта" id="email">
