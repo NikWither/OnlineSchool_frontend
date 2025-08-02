@@ -1,44 +1,94 @@
-<script setup="ts">
+<script setup>
+import { ref, onMounted } from 'vue'
+import { api } from '../../api/api'
 
-import { onMounted } from 'vue';
+const exams = ref([])
+const isLoading = ref(true)
 
+const getExams = async () => {
+  try {
+    const response = await api.get('/api/v1/user-test')
+    exams.value = response.data
+  } catch (err) {
+    console.error('Ошибка при загрузке экзаменов:', err)
+  } finally {
+    isLoading.value = false
+  }
+}
 
+onMounted(() => {
+  getExams()
+})
+
+function translateStatus(status) {
+  switch (status) {
+    case 'passed': return 'сдан'
+    case 'in_progress': return 'в процессе'
+    case 'failed': return 'завален'
+    default: return 'неизвестно'
+  }
+}
+
+function statusCardClass(status) {
+  switch (status) {
+    case 'passed': return 'card-success'
+    case 'in_progress': return 'card-warning'
+    case 'failed': return 'card-danger'
+    default: return ''
+  }
+}
+
+function statusTextClass(status) {
+  switch (status) {
+    case 'passed': return 'text-success'
+    case 'in_progress': return 'text-warning'
+    case 'failed': return 'text-danger'
+    default: return ''
+  }
+}
 </script>
 
+
+
 <template>
-
-<div class="exams">
-
-    <!-- <h2 v-if="homeWorkStore.isLoading">Загрузка..</h2> -->
-
+  <div class="exams">
     <div class="list">
-        <div class="exams">
-            <h4 class="exams__title">Всего экзаменов: 5, из них сдано: 3, предстоит сдать: 1</h4>
-            
-            <div class="exams__list">
-                <CCard>
-                    <CCardHeader>Экзамен 1</CCardHeader>
-                    <CCardBody>
-                        <CCardTitle>Задания 1-4</CCardTitle>
-                        <CCardText>Экзамен по базовым заданиям, с 1-4, всего 24 номера</CCardText>
-                        <CButton color="primary" href="#">Приступить</CButton>
-                    </CCardBody>
-                </CCard>
+      <div class="exams">
+        <h4 class="exams__title" v-if="!isLoading">
+            Список экзаменов
+          <!-- Всего экзаменов: {{ exams.length }}, 
+          из них сдано: {{ countPassed }},
+          предстоит сдать: {{ countPending }} -->
+        </h4>
 
-                <CCard>
-                    <CCardHeader>Экзамен 2</CCardHeader>
-                    <CCardBody>
-                        <CCardTitle>Программирование</CCardTitle>
-                        <CCardText>Тест на основы Python, исходя из курса.</CCardText>
-                        <CButton color="primary" href="#">Приступить</CButton>
-                    </CCardBody>
-                </CCard>
-            </div>
+        <h4 v-else>Загрузка...</h4>
+
+        <div class="exams__list">
+            <CCard
+                v-for="exam in exams"
+                :key="exam.id"
+                :class="statusCardClass(exam.status)"
+                class="mb-4"
+            >
+                <CCardHeader>Экзамен #{{ exam.id }}</CCardHeader>
+                <CCardBody>
+                    <CCardTitle>{{ exam.test?.title || 'Без названия' }}</CCardTitle>
+                    <CCardText>Статус: 
+                        <span :class="statusTextClass(exam.status)">
+                            {{ translateStatus(exam.status) }}
+                        </span>
+                    </CCardText>
+                    <CButton 
+                        class="exam-btn"
+                    >Приступить</CButton>
+                </CCardBody>
+            </CCard>
         </div>
+      </div>
     </div>
-
-</div>
+  </div>
 </template>
+
 <style scoped>
 
 .statistics {
@@ -80,5 +130,29 @@ import { onMounted } from 'vue';
         width: 300px;
     }
 } 
+
+.card-success {
+  background-color: #e8f5e9; /* мягкий зелёный */
+}
+
+.card-warning {
+  background-color: #fff8e1; /* мягкий жёлтый */
+}
+
+.card-danger {
+  background-color: #ffebee; /* мягкий красный */
+}
+
+.exam-btn {
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.exam-btn:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
 
 </style>
