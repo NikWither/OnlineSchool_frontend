@@ -21,8 +21,8 @@ import AdminAnalyticsPage from '../pages/Admin/AdminAnalyticsPage.vue';
 
 import { useAuthStore } from '../stores/AuthStore';
 import VariantsPage from '../pages/Variants/VariantsPage.vue';
-import HomeWorkList from '../components/profile/HomeWorkList.vue';
 import AdminLeadsPage from '../pages/Admin/AdminLeadsPage.vue';
+import AdminTestsPage from '../pages/Admin/AdminTestsPage.vue';
 
 
 
@@ -52,6 +52,7 @@ const routes = [
       {path: 'notes', component: AdminNotesPage},
       {path: 'courses', component: AdminCoursesPage},
       {path: 'tasks', component: AdminTasksPage},
+      {path: 'tests', component: AdminTestsPage},
       {path: 'leads', component: AdminLeadsPage},
     ]
   },  
