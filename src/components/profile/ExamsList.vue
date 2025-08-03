@@ -46,6 +46,25 @@ function statusTextClass(status) {
     default: return ''
   }
 }
+
+const downloadFile = async (id, originalName) => {
+  try {
+    const response = await api.get(`/api/v1/user-test/${id}`, {
+      responseType: 'blob'
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', originalName);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Ошибка при скачивании файла', error);
+  }
+};
 </script>
 
 
@@ -56,33 +75,31 @@ function statusTextClass(status) {
       <div class="exams">
         <h4 class="exams__title" v-if="!isLoading">
             Список экзаменов
-          <!-- Всего экзаменов: {{ exams.length }}, 
-          из них сдано: {{ countPassed }},
-          предстоит сдать: {{ countPending }} -->
         </h4>
 
         <h4 v-else>Загрузка...</h4>
 
         <div class="exams__list">
-            <CCard
-                v-for="exam in exams"
-                :key="exam.id"
-                :class="statusCardClass(exam.status)"
-                class="mb-4"
-            >
-                <CCardHeader>Экзамен #{{ exam.id }}</CCardHeader>
-                <CCardBody>
-                    <CCardTitle>{{ exam.test?.title || 'Без названия' }}</CCardTitle>
-                    <CCardText>Статус: 
-                        <span :class="statusTextClass(exam.status)">
-                            {{ translateStatus(exam.status) }}
-                        </span>
-                    </CCardText>
-                    <CButton 
-                        class="exam-btn"
-                    >Приступить</CButton>
-                </CCardBody>
-            </CCard>
+          <CCard
+            v-for="exam in exams"
+            :key="exam.id"
+            :class="statusCardClass(exam.status)"
+            class="mb-4"
+          >
+            <CCardHeader>Экзамен № {{ exam.id }}</CCardHeader>
+            <CCardBody>
+                <CCardTitle>{{ exam.test || 'Без названия' }}</CCardTitle>
+                <CCardText>Статус: 
+                    <span :class="statusTextClass(exam.status)">
+                        {{ translateStatus(exam.status) }}
+                    </span>
+                </CCardText>
+                <CButton
+                  @click="downloadFile(exam.test_id, exam.test_original_name)"
+                    class="exam-btn"
+                >Приступить</CButton>
+            </CCardBody>
+          </CCard>
         </div>
       </div>
     </div>
@@ -144,14 +161,14 @@ function statusTextClass(status) {
 }
 
 .exam-btn {
-  background-color: #007bff;
+  background-color: rgb(122, 116, 173);
   color: white;
   transition: background-color 0.3s ease;
   border: none;
 }
 
 .exam-btn:hover {
-  background-color: #0056b3;
+  background-color: rgb(65, 56, 132);
   color: #fff;
 }
 

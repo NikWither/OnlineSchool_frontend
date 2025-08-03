@@ -7,7 +7,7 @@ import {
   CAccordionHeader,
   CAccordionBody,
 } from '@coreui/vue'
-
+import Footer from '../../components/Footer/Footer.vue';
 import LeadForm from '../../components/forms/LeadForm.vue';
 
 const activeItem = ref(0)
@@ -16,9 +16,11 @@ const activeItem = ref(0)
 
         <div class="hero">
 
-                <img src="/public//images/banner.jpg" alt="logo">
+                <img src="/public//images/banner.jpg" alt="Подготовка к ЕГЭ по информатике"  title="Репетитор по информатике — Всеволод Цаплин">
                 <h1>Информатика и программирование - просто и понятно</h1>
                 <p>Подготовка к ОГЭ и ЕГЭ с репетитором-практиком</p>
+
+                <a class="to_contact" href="#signup">Записаться!</a>
         </div>
 
         <h3 class="section__title">Обо мне</h3>
@@ -43,7 +45,7 @@ const activeItem = ref(0)
                                 </div>
 
                                 <div class="info__img">
-                                        <img src="/images/my_photo.jpg" alt="Всеволод Цаплин">
+                                        <img src="/images/my_photo.jpg" alt="Всеволод Цаплин — репетитор по информатике" title="Всеволод Цаплин — репетитор по информатике">
                                 </div>
                         </div>
                 </div>
@@ -232,6 +234,22 @@ const activeItem = ref(0)
                 </div>
         </div>
 
+
+        <h3 id="signup" class="section__title">Связь со мной, ответы на вопросы или запись</h3>
+        <div class="contact">
+                <div class="wrapper">
+                        <div class="list">
+                                <a class="item" target="_blank" href="https://t.me/vsevolodrepit">
+                                        <img width="100" height="100" src="/images/telegram.png" alt="telegram" title="telegram">
+                                </a>
+
+                                <a class="item" target="_blank" href="https://wa.me/89821007950">
+                                        <img width="100" height="100" src="/images/whatsapp.png" alt="whats app" title="whats app">
+                                </a>
+                        </div>
+                </div>
+        </div>
+
         <h3 class="section__title">Ответы на вопросы</h3>
 
         <div class="faq">
@@ -319,11 +337,13 @@ const activeItem = ref(0)
                 </div>
         </div>
 
+        
+
 </template>
 
 <style>
 .accordion-button:not(.collapsed) {
-  background-color: rgb(242, 207, 206) !important;
+  background-color: rgb(206 203 233) !important;
   color: black !important;
 }
 
@@ -331,5 +351,14 @@ const activeItem = ref(0)
         .image-form {
                 display: none;
         }
+}
+
+.to_contact {
+        margin-top: 15px;
+        font-size: 25px;
+        padding: 10px 15px;
+        background-color: rgb(206 203 233);
+        border: 1px solid rgb(181, 176, 226);
+        border-radius: 15px;
 }
 </style>

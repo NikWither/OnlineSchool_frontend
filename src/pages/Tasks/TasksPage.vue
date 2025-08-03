@@ -2,15 +2,13 @@
 
 import PageTitle from '../../ui/PageTitle.vue';
 import { onMounted } from 'vue';
-import TasksList from '../../components/admin/lists/TasksList.vue';
-
 import { useTasksStore } from '../../stores/TasksStore';
+import TasksList from '../../components/admin/lists/TasksList.vue';
 
 const taskStore = useTasksStore();
 
 onMounted(() => {
     taskStore.fetchTasks();
-    console.log('tasks', taskStore.tasks);
 });
 
 </script>
@@ -22,14 +20,17 @@ onMounted(() => {
         <div class="section">
             <div class="section__title">Сборники заданий для самоконтроля и проверки</div>
 
-            <p v-if="!taskStore.isLoading">
+            <p v-if="taskStore.isLoading">
                 <CSpinner/>
+            </p>
+
+            <p v-else-if="taskStore.tasks.length === 0">
+                Заданий пока нет
             </p>
 
             <div class="list" v-else>
                 <TasksList :tasks="taskStore.tasks" />
             </div>
         </div>
-        
     </div>
 </template>

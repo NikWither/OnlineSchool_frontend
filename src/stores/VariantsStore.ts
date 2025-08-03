@@ -16,12 +16,18 @@ export const useVariantsStore = defineStore('variants', () => {
 
     const fetchVariants = async () => {
         if (isLoading.value) return;
+        isLoading.value = true;
 
-        const response = await api.get('/api/v1/variants');
+        try {
+            const response = await api.get('/api/v1/variants');
 
-        if (response.status === 200) {
-            variants.value = response.data;
-            isLoading.value = true;
+            if (response.status === 200) {
+                variants.value = response.data;
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки вариантов:', error);
+        } finally {
+            isLoading.value = false;
         }
     }
 

@@ -6,14 +6,10 @@ import PageTitle from '../../ui/PageTitle.vue';
 </script>
 
 <template>
-    <div class="authorization">
         
-        <PageTitle title="Авторизация"/>
-
-        <p>Запоминайте свои логины и пароли</p>
-
-        <div class="wrapper">
-            <LoginForm />
-        </div>
-    </div>
+    <PageTitle title="Авторизация"/>
+    <div class="wrapper">
+        <LoginForm />
+    </div>        
+    
 </template>

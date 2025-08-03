@@ -15,3 +15,21 @@ api.interceptors.request.use((config) => {
 
     return config;
 })
+
+api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const authStore = useAuthStore();
+
+        if ([401, 403].includes(error.response?.status)) {
+            try {
+                await api.get("/api/v1/variants");
+            } catch {
+                authStore.logout();
+                window.location.href = "/login";
+            }
+        }
+
+        return Promise.reject(error);
+    }
+)

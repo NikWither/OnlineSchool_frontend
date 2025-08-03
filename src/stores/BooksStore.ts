@@ -2,27 +2,27 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { api } from '../api/api';
 
-export const useNotesStore = defineStore('notes', () => {    
+export const useBooksStore = defineStore('books', () => {    
     // state
-    const notes = ref([]);
+    const books = ref([]);
     const isLoading = ref(false);
     
     // getters
 
-    const notesCount = computed(() => notes.value.length);
-    const allNotes = computed(() => notes.value);
+    const booksCount = computed(() => books.value.length);
+    const allBooks = computed(() => books.value);
 
     // actions
 
-    const fetchNotes = async () => {
+    const fetchBooks = async () => {
         if (isLoading.value) return;
         isLoading.value = true;
 
         try {
-            const response = await api.get('/api/v1/notes');
+            const response = await api.get('/api/v1/books');
 
             if (response.status === 200) {
-                notes.value = response.data;
+                books.value = response.data;
                 isLoading.value = true;
             }
         } catch (error) {
@@ -36,12 +36,12 @@ export const useNotesStore = defineStore('notes', () => {
 
     return {
         // state
-        notes,
+        books,
         isLoading,
         // getters
-        notesCount,
-        allNotes,
+        booksCount,
+        allBooks,
         // actions
-        fetchNotes
+        fetchBooks
     };
 });

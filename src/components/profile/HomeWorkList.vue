@@ -7,6 +7,8 @@ const homeWorkStore = useHomeWorkStore();
 
 onMounted(async () => {
     await homeWorkStore.getHomeWork();
+
+    console.log('homeWorkStore', homeWorkStore.homework);
 });
 
 </script>
@@ -19,7 +21,7 @@ onMounted(async () => {
 
     <div v-else class="list">
         <CCard v-for="(item, index) in homeWorkStore.homework" :key="index" class="card">
-            <CCardHeader>Домашка к 15.07</CCardHeader>
+            <CCardHeader>Домашка задана {{ item.date }}</CCardHeader>
             <CCardBody>
                 <CCardTitle>{{ item.title }}</CCardTitle>
                 <CCardText>{{ item.homework }}</CCardText>
