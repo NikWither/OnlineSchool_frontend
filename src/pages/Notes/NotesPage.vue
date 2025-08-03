@@ -9,7 +9,6 @@ const noteStore = useNotesStore();
 
 onMounted(() => {
     noteStore.fetchNotes();
-    console.log('notes', noteStore.notes);
 });
 
 </script>
@@ -21,8 +20,12 @@ onMounted(() => {
         <div class="section">
             <div class="section__title">Сборник вариантов за последние годы</div>
 
-            <p v-if="!noteStore.isLoading">
+            <p v-if="noteStore.isLoading">
                 <CSpinner/>
+            </p>
+
+            <p v-else-if="noteStore.notes.length === 0">
+                Конспектов пока нет
             </p>
 
             <div class="list" v-else>

@@ -23,12 +23,14 @@ import { useAuthStore } from '../stores/AuthStore';
 import VariantsPage from '../pages/Variants/VariantsPage.vue';
 import AdminLeadsPage from '../pages/Admin/AdminLeadsPage.vue';
 import AdminTestsPage from '../pages/Admin/AdminTestsPage.vue';
+import BooksPage from '../pages/Book/BooksPage.vue';
+import AdminBooksPage from '../pages/Admin/AdminBooksPage.vue';
 
 
 
 
 const routes = [
-
+  // homepage
   { path: '/', component: HomePage },
   // auth
   { path: '/login', component: Authorization },
@@ -37,25 +39,29 @@ const routes = [
   { path: '/profile', component: ProfilePage, meta: { requiresAuth: true } },
   { path: '/notes', component: NotesPage, meta: { requiresAuth: true } },
   { path: '/variants', component: VariantsPage, meta: { requiresAuth: true}},
-  { path: '/plan', component: PlanPage, meta: { requiresAuth: true}},
+  { path: '/books', component: BooksPage, meta: { requiresAuth: true}},
   { path: '/tasks', component: TasksPage, meta: { requiresAuth: true}},
   { path: '/help', component: HelpPage, meta: { requiresAuth: true}},
+  { path: '/plan', component: PlanPage, meta: { requiresAuth: true}},
   // admin
-  { 
-    path: '/dashboard', 
-    component: DashboardPage, 
+  {
+    path: '/dashboard',
+    component: DashboardPage,
+    meta: { requiresAuth: true, requiresAdmin: true }, // 👈 обязательно
     children: [
-      {path: '', component: AdminAnalyticsPage},
-      {path: 'variants', component: AdminVariantsPage},
-      {path: 'users', component: AdminUsersPage},
-      {path: 'users/:id', component: AdminStudentDetailPage},
-      {path: 'notes', component: AdminNotesPage},
-      {path: 'courses', component: AdminCoursesPage},
-      {path: 'tasks', component: AdminTasksPage},
-      {path: 'tests', component: AdminTestsPage},
-      {path: 'leads', component: AdminLeadsPage},
+      { path: '', component: AdminAnalyticsPage },
+      { path: 'variants', component: AdminVariantsPage },
+      { path: 'users', component: AdminUsersPage },
+      { path: 'users/:id', component: AdminStudentDetailPage },
+      { path: 'notes', component: AdminNotesPage },
+      { path: 'courses', component: AdminCoursesPage },
+      { path: 'tasks', component: AdminTasksPage },
+      { path: 'books', component: AdminBooksPage },
+      { path: 'tests', component: AdminTestsPage },
+      { path: 'leads', component: AdminLeadsPage },
     ]
-  },  
+  }
+
 ]
 
 const router = createRouter({
@@ -65,11 +71,20 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
-    next(from.path);
+  const isLoggedIn = authStore.isAuthenticated;
+  const isAdmin = authStore.isAdmin;
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next('/login');
+  } else if ((to.path === '/login' || to.path === '/register') && isLoggedIn) {
+    next('/');
+  } else if (to.meta.requiresAdmin && !isAdmin) {
+    next('/'); // не пускаем на админку
   } else {
     next();
   }
 });
+
+
 
 export default router

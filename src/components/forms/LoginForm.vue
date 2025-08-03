@@ -32,12 +32,12 @@ const handleSubmitForm = async () => {
 
 <template>
 
-    <CForm @submit.prevent="handleSubmitForm" class="form-user">
+    <CForm @submit.prevent="handleSubmitForm" class="register__form">
         <CFormInput
             type="text"
             id="email"
-            placeholder="Логин"
-            text="Введите логин для входа в систему"
+            placeholder="Почта"
+            text="Введите указанную при регистрации почту"
             aria-describedby="exampleFormControlInputHelpInline"
             v-model="formData.email"
         />
@@ -45,25 +45,53 @@ const handleSubmitForm = async () => {
         <CFormInput
             type="password"
             id="password"
-            placeholder="Введите пароль от 5-ти символов"
+            placeholder="Пароль"
             text="Запоминайте свои пароли"
             aria-describedby="exampleFormControlInputHelpInline"
             v-model="formData.password"
         />
 
-        <div class="form-user__input">
+        <div class="btn">
             <button type="submit">Войти</button>
         </div>
     </CForm>
-    <!-- <form @submit.prevent="handleSubmitForm" class="form-user">
-        <div class="form-user__input">
-            <input v-model="formData.email" type="text" placeholder="Логин" id="email">
-        </div>
-
-        <div class="form-user__input">
-            <input v-model="formData.password" type="text" placeholder="Пароль" id="password">
-        </div>
-    </form> -->
 
     <div v-if="error">{{ error }}</div>
 </template>
+
+<style scoped>
+
+.register__form {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: 1px solid rgb(236, 236, 236);
+
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(206 203 233);
+    width: 30%;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid rgb(171, 165, 221);
+    font-size: 21px;
+    color: black;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background-color: rgb(181, 176, 228);
+}
+
+.btn:active {
+    background-color: rgb(156, 148, 225);
+    border: 1px solid white;
+}
+
+</style>

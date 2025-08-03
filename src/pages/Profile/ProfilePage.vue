@@ -5,8 +5,6 @@ import { useProfileStore } from '../../stores/ProfileStore';
 import HomeWorkList from '../../components/profile/HomeWorkList.vue';
 import { RouterView, RouterLink } from 'vue-router';
 import ExamsList from '../../components/profile/ExamsList.vue';
-import Courses from '../../components/profile/Courses.vue';
-import Timetable from '../../components/profile/Timetable.vue';
 
 const profileStore = useProfileStore();
 
@@ -18,7 +16,7 @@ onMounted(async () => {
 
 <template>
     <h1>Почта: {{profileStore.userInfo.email}}</h1>
-    <h1>Логин: {{profileStore.userInfo.name}}</h1>
+    <h1>{{profileStore.userInfo.name}}</h1>
 
     <div class="navigation">
 

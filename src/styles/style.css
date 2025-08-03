@@ -164,7 +164,7 @@ body .container .wrapper .about_possible .wrapper .list .card {
   padding: 12px 15px;
   border-radius: 10px;
   border: 0.5px solid rgb(230, 230, 230);
-  background-color: rgb(242, 207, 206);
+  background-color: rgb(206, 203, 233);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   margin: 0px 40px;
@@ -290,6 +290,11 @@ body .container .wrapper .prices .wrapper {
   border-radius: 20px;
   padding: 20px;
 }
+@media (max-width: 450px) {
+  body .container .wrapper .prices .wrapper {
+    padding: 8px;
+  }
+}
 body .container .wrapper .prices .wrapper .list__section {
   margin-bottom: 20px;
 }
@@ -311,7 +316,7 @@ body .container .wrapper .prices .wrapper .list__section .wrapper .card {
   padding: 10px 15px;
   margin: 0px 20px;
   border: none;
-  background-color: rgb(242, 207, 206);
+  background-color: rgb(206, 203, 233);
   border-radius: 10px;
   border: 0.5px solid rgb(230, 230, 230);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -335,6 +340,17 @@ body .container .wrapper .prices .wrapper .list__section .wrapper .big {
   body .container .wrapper .prices .wrapper .list__section .wrapper .card {
     margin: 4px 5px;
   }
+}
+body .container .wrapper .contact {
+  margin: 0 auto;
+  max-width: 1000px;
+  margin-bottom: 80px;
+}
+body .container .wrapper .contact .wrapper .list {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
 }
 body .container .wrapper .faq {
   margin-bottom: 50px;
@@ -402,7 +418,7 @@ body .container .wrapper .feedback .wrapper .list .feedback-form button {
   justify-content: center;
   margin: 0 auto;
   padding: 8px 12px;
-  background-color: rgb(242, 207, 206);
+  background-color: rgb(206, 203, 233);
   border: 1px solid #fafafa;
   border-radius: 10px;
   font-weight: 600;
@@ -469,7 +485,7 @@ body .container .wrapper .admin .section .main .homework__tools .title {
   margin: 20px;
 }
 body .container .wrapper .admin .section .main .homework__tools .button {
-  background-color: rgb(242, 207, 206);
+  background-color: rgb(206, 203, 233);
   height: 50px;
   font-weight: 600;
   font-size: 17px;
@@ -496,7 +512,7 @@ body .container .wrapper .admin .section .main .homework .load_more {
   margin: 0 auto;
   padding: 10px;
   margin-top: 10px;
-  background-color: rgb(242, 207, 206);
+  background-color: rgb(206, 203, 233);
   color: black;
   border: 1px solid black;
   font-weight: 600;
@@ -565,6 +581,50 @@ body .container .wrapper .notes .section .list .item {
 body .container .wrapper .notes .section .list .item p {
   margin-bottom: 5px;
   font-size: 20px;
+}
+body .container .wrapper .help .about {
+  max-width: 800px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+body .container .wrapper .help .about__link {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+body .container .wrapper .help .cabinet {
+  max-width: 800px;
+  margin: 0 auto;
+}
+body .container .wrapper .help .tech h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+body .container .wrapper .help .tech__list {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  max-width: 800px;
+  background-color: #fafafa;
+  border-radius: 20px;
+  border: 1px solid #cccccc;
+}
+body .container .wrapper .help .tech__list .item {
+  width: 200px;
+  padding: 20px;
+  margin: 10px;
+}
+body .container .wrapper .help .tech__list .item p {
+  font-size: 22px;
+  margin-top: 10px;
+  text-align: center;
+}
+body .container .wrapper .footer {
+  background-color: aqua;
 }
 
 header .header {
@@ -638,31 +698,4 @@ header .adminheader__nav .item {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.authorization .wrapper .form-user {
-  margin: 20px 0px;
-  padding: 20px;
-  width: 400px;
-  background-color: rgb(252, 252, 252);
-  border: 1px solid black;
-  border-radius: 10px;
-}
-.authorization .wrapper .form-user__input {
-  display: flex;
-  justify-content: center;
-}
-.authorization .wrapper .form-user__input input {
-  width: 80%;
-  border: 1px solid black;
-  padding: 8px 14px;
-  border-radius: 10px;
-  margin: 15px 0px;
-}
-.authorization .wrapper .form-user button {
-  margin-top: 30px;
-  background-color: aqua;
-  padding: 6px 14px;
-  font-size: 18px;
-  border-radius: 12px;
-  border: 1px solid black;
 }/*# sourceMappingURL=style.css.map */

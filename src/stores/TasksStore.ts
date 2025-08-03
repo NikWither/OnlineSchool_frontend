@@ -16,12 +16,18 @@ export const useTasksStore = defineStore('tasks', () => {
 
     const fetchTasks = async () => {
         if (isLoading.value) return;
+        isLoading.value = true;
 
-        const response = await api.get('/api/v1/tasks');
+        try {
+            const response = await api.get('/api/v1/tasks');
 
-        if (response.status === 200) {
-            tasks.value = response.data;
-            isLoading.value = true;
+            if (response.status === 200) {
+                tasks.value = response.data;
+            }
+        } catch (error) {
+            console.error('Ошибка при загрузке заданий', error)
+        } finally {
+            isLoading.value = false;
         }
     }
 

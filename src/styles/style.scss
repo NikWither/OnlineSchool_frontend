@@ -197,7 +197,7 @@ body .container {
                         padding: 12px 15px;
                         border-radius: 10px;
                         border: 0.5px solid rgb(230, 230, 230);
-                        background-color: rgb(242, 207, 206);
+                        background-color: rgb(206 203 233);
                         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // мягкая тень
                         transition: box-shadow 0.3s ease, transform 0.3s ease;
                         margin: 0px 40px;
@@ -353,6 +353,10 @@ body .container {
                 border-radius: 20px;
                 padding: 20px;
 
+                @media (max-width: 450px) {
+                    padding: 8px;
+                }
+
                 .list {
 
                     &__section {
@@ -382,7 +386,7 @@ body .container {
                                 margin: 0px 20px;
                                 border: none;
 
-                                background-color: rgb(242, 207, 206);
+                                background-color: rgb(206 203 233);
 
                                 border-radius: 10px;
 
@@ -420,6 +424,24 @@ body .container {
 
                         }
                     }
+                }
+            }
+
+        }
+
+        .contact {
+            margin: 0 auto;
+            max-width: 1000px;
+            margin-bottom: 80px;
+
+            .wrapper {
+
+                .list {
+                    display: flex;
+                    justify-content: center;
+                    gap: 50px;
+
+                    align-items: center;
                 }
             }
         }
@@ -506,7 +528,7 @@ body .container {
                             margin: 0 auto;
 
                             padding: 8px 12px;
-                            background-color: rgb(242, 207, 206);
+                            background-color: rgb(206 203 233);
                             border: 1px solid #fafafa;
                             border-radius: 10px;
 
@@ -608,7 +630,7 @@ body .container {
                             }
 
                             .button {
-                                background-color: rgb(242, 207, 206);
+                                background-color: rgb(206 203 233);
                                 height: 50px;
                                 font-weight: 600;
                                 font-size: 17px;
@@ -644,7 +666,7 @@ body .container {
                             margin: 0 auto;
                             padding: 10px;
                             margin-top: 10px;
-                            background-color: rgb(242, 207, 206);
+                            background-color: rgb(206 203 233);
                             color: black;
                             border: 1px solid black;
                             font-weight: 600;
@@ -753,6 +775,69 @@ body .container {
                 }
             }
         }
+
+        .help {
+            
+            .about {
+                max-width: 800px;
+                margin: 20px auto;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                
+                &__link {
+                    margin-bottom: 20px;
+                    font-size: 20px;
+
+                }
+
+                margin-bottom: 40px;
+            }
+
+            .cabinet {
+                max-width: 800px;
+                margin: 0 auto;
+                
+            }
+
+            .tech {
+                
+                h2 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+
+                &__list {
+                    display: flex;
+                    justify-content: center;
+                    align-items: start;
+                    margin: 0 auto;
+
+                    flex-wrap: wrap;
+
+                    max-width: 800px;
+                    background-color: #fafafa;
+                    border-radius: 20px;
+                    border: 1px solid #cccccc;
+
+                    .item {
+                        width: 200px;
+                        padding: 20px;
+                        margin: 10px;
+
+                        p {
+                            font-size: 22px;
+                            margin-top: 10px;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer {
+            background-color: aqua;
+        }
     }
 }
 
@@ -855,35 +940,5 @@ header {
         justify-content: center;
         align-items: center;
 
-        .form-user {
-            margin: 20px 0px;
-            padding: 20px;
-            width: 400px;
-            background-color: rgb(252, 252, 252);
-            border: 1px solid black;
-            border-radius: 10px;
-
-            &__input {
-                display: flex;
-                justify-content: center;
-
-                input {
-                    width: 80%;
-                    border: 1px solid black;
-                    padding: 8px 14px;
-                    border-radius: 10px;
-                    margin: 15px 0px;
-                }
-            }
-
-            button {
-                margin-top: 30px;
-                background-color: aqua;
-                padding: 6px 14px;
-                font-size: 18px;
-                border-radius: 12px;
-                border: 1px solid black;
-            }
-        }
     }
 }
