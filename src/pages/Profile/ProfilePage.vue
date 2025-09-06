@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { api } from '../../api/api';
+import { onMounted } from 'vue';
 import { useProfileStore } from '../../stores/ProfileStore';
 import HomeWorkList from '../../components/profile/HomeWorkList.vue';
-import { RouterView, RouterLink } from 'vue-router';
 import ExamsList from '../../components/profile/ExamsList.vue';
+import Courses from '../../components/profile/Courses.vue';
 
 const profileStore = useProfileStore();
 
@@ -24,6 +23,7 @@ onMounted(async () => {
             <CTabs :activeItemKey="1">
                 <CTabList variant="tabs" layout="justified">
                     <CTab aria-controls="home-tab-pane" :itemKey="1">Домашка</CTab>
+                    <CTab aria-controls="disabled-tab-pane" :itemKey="5">Прогресс</CTab>
                     <CTab aria-controls="profile-tab-pane" :itemKey="2">Экзамены</CTab>
                     <CTab aria-controls="contact-tab-pane" :itemKey="3">Расписание</CTab>
                     <CTab aria-controls="disabled-tab-pane" :itemKey="4">Курсы</CTab>
@@ -38,6 +38,9 @@ onMounted(async () => {
                     </CTabPanel>
                     <CTabPanel class="py-3" aria-labelledby="contact-tab-pane" :itemKey="3">
                         <Timetable />
+                    </CTabPanel>
+                    <CTabPanel class="py-3" aria-labelledby="contact-tab-pane" :itemKey="5">
+                         <p>Страница в разработке...</p>
                     </CTabPanel>
                     <CTabPanel class="py-3" aria-labelledby="disabled-tab-pane" :itemKey="4">
                         <Courses />
