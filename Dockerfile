@@ -1,31 +1,24 @@
-# Этап 1: Сборка приложения
-FROM node:18-alpine AS builder
+# myrepitfrontend/Dockerfile
+
+# Шаг 1: Сборка
+FROM node:18 AS build
 
 WORKDIR /app
 
-# Копируем зависимости первыми — для кэширования слоёв
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
-# Копируем исходники
 COPY . .
-
-# Собираем приложение, игнорируя TS ошибки (если нужно)
-# ⚠️ ВАЖНО: добавь "--ignore-ts-errors" только если используешь vue-tsc
-# Или просто собирай через Vite, который по умолчанию не падает от TS ошибок
 RUN npm run build
 
-# Этап 2: Продакшен-образ с nginx
+# Шаг 2: Сервер для отдачи статики
 FROM nginx:alpine
 
-# Копируем конфиг nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Копируем собранное приложение
-COPY --from=builder /app/dist /usr/share/nginx/html
+# Используем стандартный конфиг nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Открываем порт
-EXPOSE 80
+EXPOSE 3000
 
-# Запускаем nginx
 CMD ["nginx", "-g", "daemon off;"]
